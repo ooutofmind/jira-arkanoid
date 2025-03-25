@@ -1,21 +1,36 @@
 {
   "name": "jira-arkanoid",
   "version": "1.0.0",
-  "description": "A Jira-themed Arkanoid game",
-  "main": "public/main.js",
+  "description": "A fun twist on the classic Arkanoid game, themed around Jira! Break through Jira tickets and collect story points while avoiding blockers.",
   "scripts": {
-    "start": "serve public",
+    "build": "webpack",
+    "start": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "game",
-    "arkanoid",
-    "jira"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ooutofmind/jira-arkanoid.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ooutofmind/jira-arkanoid/issues"
+  },
+  "homepage": "https://github.com/ooutofmind/jira-arkanoid#readme",
   "dependencies": {
-    "phaser": "^3.88.2",
-    "serve": "^14.2.1"
+    "phaser": "^3.88.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "babel-loader": "^10.0.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
   }
 }
