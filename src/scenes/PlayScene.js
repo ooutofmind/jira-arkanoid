@@ -24,7 +24,7 @@ export default class PlayScene extends Phaser.Scene {
         this.ball.setData('onPaddle', true);
 
         this.blocks = this.physics.add.staticGroup();
-        const fibonacciHits = [1, 2, 3, 5, 8, 13, 20];
+        const fibonacciHits = [1, 2, 3, 5, 8];
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 6; j++) {
                 let block = this.blocks.create(100 + j * 120, 100 + i * 50, 'block');
