@@ -1,4 +1,7 @@
 import * as Phaser from 'phaser';
+import ballImg from '/assets/ballGrey.png';
+import paddleImg from '/assets/paddleBlu.png';
+import yellowBlockImg from '/assets/element_yellow_rectangle.png';
 
 export default class PlayScene extends Phaser.Scene {
     constructor() {
@@ -6,9 +9,9 @@ export default class PlayScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('paddle', 'https://phaser.io/content/tutorials/making-your-first-phaser-3-game/paddle.png');
-        this.load.image('ball', 'https://phaser.io/content/tutorials/making-your-first-phaser-3-game/ball.png');
-        this.load.image('block', 'https://phaser.io/content/tutorials/making-your-first-phaser-3-game/block.png');
+        this.load.image('paddle', paddleImg);
+        this.load.image('ball', ballImg);
+        this.load.image('block', yellowBlockImg);
     }
 
     create() {
