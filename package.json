@@ -1,0 +1,21 @@
+{
+  "name": "jira-arkanoid",
+  "version": "1.0.0",
+  "description": "A Jira-themed Arkanoid game",
+  "main": "public/main.js",
+  "scripts": {
+    "start": "serve public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "game",
+    "arkanoid",
+    "jira"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "phaser": "^3.88.2",
+    "serve": "^14.2.1"
+  }
+}
