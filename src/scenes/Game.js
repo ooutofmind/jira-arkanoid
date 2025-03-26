@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';
+import {Scene} from 'phaser';
 import ballImg from '/public/assets/ballGrey.png';
 import paddleImg from '/public/assets/paddleBlu.png';
 import yellowBlockImg from '/public/assets/element_yellow_rectangle.png';
@@ -27,8 +27,13 @@ export class Game extends Scene {
         const fibonacciHits = [1, 2, 3, 5, 8];
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 6; j++) {
-                let block = this.blocks.create(100 + j * 120, 100 + i * 50, 'block');
+                let x = 100 + j * 120;
+                let y = 100 + i * 50;
+                let block = this.blocks.create(x, y, 'block');
                 block.hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits);
+                block.textRef = this.add.text(x, y, block.hitPoints, {fontSize: '16px', fill: '#fff'})
+                    .setOrigin(0.5)
+                    .setDepth(1);
             }
         }
 
@@ -63,9 +68,10 @@ export class Game extends Scene {
 
     hitBlock(ball, block) {
         block.hitPoints--;
+        block.textRef.setText(block.hitPoints);
         if (block.hitPoints <= 0) {
-            //brick.disableBody(true, true);
             block.destroy();
+            block.textRef.destroy();
             if (this.blocks.countActive() === 0)
             {
                 this.resetLevel();
