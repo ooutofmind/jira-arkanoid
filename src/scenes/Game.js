@@ -16,9 +16,9 @@ export class Game extends Scene {
 
     create() {
         this.physics.world.setBoundsCollision(true, true, true, false);
-        this.paddle = this.physics.add.sprite(400, 550, 'paddle').setImmovable();
+        this.paddle = this.physics.add.sprite(512, 720, 'paddle').setImmovable();
 
-        this.ball = this.physics.add.sprite(400, 500, 'ball')
+        this.ball = this.physics.add.sprite(512, 690, 'ball')
             .setBounce(1)
             .setCollideWorldBounds(true);
         this.ball.setData('onPaddle', true);
@@ -120,7 +120,7 @@ export class Game extends Scene {
             this.ball.x = this.paddle.x;
         }
 
-        if (this.ball.y > 600)
+        if (this.ball.y > 768)
         {
             this.resetBall();
         }
