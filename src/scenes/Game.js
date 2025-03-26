@@ -5,7 +5,7 @@ import yellowBlockImg from '/public/assets/element_yellow_rectangle.png';
 
 export class Game extends Scene {
     constructor() {
-        super({ key: 'breakout' });
+        super({key: 'breakout'});
     }
 
     preload() {
@@ -18,7 +18,7 @@ export class Game extends Scene {
         this.physics.world.setBoundsCollision(true, true, true, false);
         this.paddle = this.physics.add.sprite(512, 720, 'paddle').setImmovable();
 
-        this.ball = this.physics.add.sprite(512, 690, 'ball')
+        this.ball = this.physics.add.sprite(this.paddle.x, this.paddle.y - 30, 'ball')
             .setBounce(1)
             .setCollideWorldBounds(true);
         this.ball.setData('onPaddle', true);
@@ -51,50 +51,40 @@ export class Game extends Scene {
         if (block.hitPoints <= 0) {
             block.destroy();
             block.textRef.destroy();
-            if (this.blocks.countActive() === 0)
-            {
+            if (this.blocks.countActive() === 0) {
                 this.resetLevel();
             }
         }
     }
 
-    hitPaddle (ball, paddle)
-    {
+    hitPaddle(ball, paddle) {
         let diff = 0;
 
-        if (ball.x < paddle.x)
-        {
+        if (ball.x < paddle.x) {
             //  Ball is on the left-hand side of the paddle
             diff = paddle.x - ball.x;
             ball.setVelocityX(-10 * diff);
-        }
-        else if (ball.x > paddle.x)
-        {
+        } else if (ball.x > paddle.x) {
             //  Ball is on the right-hand side of the paddle
             diff = ball.x - paddle.x;
             ball.setVelocityX(10 * diff);
-        }
-        else
-        {
+        } else {
             //  Ball is perfectly in the middle
             //  Add a little random X to stop it bouncing straight up!
             ball.setVelocityX(2 + Math.random() * 8);
         }
     }
 
-    resetBall ()
-    {
+    resetBall() {
         this.ball.setVelocity(0);
-        this.ball.setPosition(this.paddle.x, 500);
+        this.ball.setPosition(this.paddle.x, this.paddle.y - 30);
         this.ball.setData('onPaddle', true);
     }
 
-    resetLevel ()
-    {
+    resetLevel() {
         this.resetBall();
 
-        this.blocks.children.each(brick =>
-        {
+        this.blocks.children.each(brick => {
 
             brick.enableBody(false, 0, 0, true, true);
 
@@ -120,8 +110,7 @@ export class Game extends Scene {
             this.ball.x = this.paddle.x;
         }
 
-        if (this.ball.y > 768)
-        {
+        if (this.ball.y > 768) {
             this.resetBall();
         }
     }
