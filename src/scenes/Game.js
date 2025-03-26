@@ -1,9 +1,9 @@
-import * as Phaser from 'phaser';
-import ballImg from '/assets/ballGrey.png';
-import paddleImg from '/assets/paddleBlu.png';
-import yellowBlockImg from '/assets/element_yellow_rectangle.png';
+import { Scene } from 'phaser';
+import ballImg from '/public/assets/ballGrey.png';
+import paddleImg from '/public/assets/paddleBlu.png';
+import yellowBlockImg from '/public/assets/element_yellow_rectangle.png';
 
-export default class PlayScene extends Phaser.Scene {
+export class Game extends Scene {
     constructor() {
         super({ key: 'breakout' });
     }
