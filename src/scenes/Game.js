@@ -26,10 +26,12 @@ export class Game extends Scene {
         this.blocks = this.physics.add.staticGroup();
         const fibonacciHits = [1, 2, 3, 5, 8];
         for (let i = 0; i < 5; i++) {
-            for (let j = 0; j < 6; j++) {
-                let x = 100 + j * 120;
+            for (let j = 0; j < 8; j++) {
+                let x = 90 + j * 120;
                 let y = 100 + i * 50;
                 let block = this.blocks.create(x, y, 'block');
+                block.setDisplaySize(100, 50);
+                block.refreshBody();
                 block.hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits);
                 block.textRef = this.add.text(x, y, block.hitPoints, {fontSize: '16px', fill: '#fff'})
                     .setOrigin(0.5)
