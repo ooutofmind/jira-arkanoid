@@ -2,6 +2,7 @@ import {Scene} from 'phaser';
 import ballImg from '/public/assets/ballGrey.png';
 import paddleImg from '/public/assets/paddleBlu.png';
 import yellowBlockImg from '/public/assets/element_yellow_rectangle.png';
+import epicsJson from '../epics.json';
 
 export class Game extends Scene {
     constructor() {
@@ -24,16 +25,21 @@ export class Game extends Scene {
         this.ball.setData('onPaddle', true);
 
         this.blocks = this.physics.add.staticGroup();
+        const epicNames = this.extractIssues(epicsJson);
         const fibonacciHits = [1, 2, 3, 5, 8];
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 8; j++) {
                 let x = 90 + j * 120;
                 let y = 100 + i * 50;
                 let block = this.blocks.create(x, y, 'block');
-                block.setDisplaySize(100, 50);
+                block.setDisplaySize(118, 50);
                 block.refreshBody();
                 block.hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits);
-                block.textRef = this.add.text(x, y, block.hitPoints, {fontSize: '16px', fill: '#fff'})
+                const epicName = Phaser.Utils.Array.GetRandom(epicNames);
+                block.textRefSummary = this.add.text(x, y - 10, epicName + ": ", {fontSize: '10px', fill: '#fff'})
+                    .setOrigin(0.5)
+                    .setDepth(1);
+                block.textRef = this.add.text(x, y, `Story points: ${block.hitPoints}`, {fontSize: '10px', fill: '#fff'})
                     .setOrigin(0.5)
                     .setDepth(1);
             }
@@ -45,12 +51,26 @@ export class Game extends Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
+    extractIssues(jsonData) {
+        if (!jsonData || !jsonData.values) {
+            return [];
+        }
+
+        return jsonData.values.map(issue => `${issue.key}: ${issue.summary}`)
+            .map(summary => this.truncateWithEllipsis(summary, 15));
+    }
+
+    truncateWithEllipsis(str, maxLength) {
+        return str.length > maxLength ? str.substring(0, maxLength - 3) + '...' : str;
+    }
+
     hitBlock(ball, block) {
         block.hitPoints--;
-        block.textRef.setText(block.hitPoints);
+        block.textRef.setText(`Story points: ${block.hitPoints}`);
         if (block.hitPoints <= 0) {
             block.destroy();
             block.textRef.destroy();
+            block.textRefSummary.destroy();
             if (this.blocks.countActive() === 0) {
                 this.resetLevel();
             }

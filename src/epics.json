@@ -1,0 +1,399 @@
+{
+  "maxResults": 50,
+  "startAt": 0,
+  "isLast": true,
+  "values": [
+    {
+      "id": 99538,
+      "key": "CRM-19695",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/99538",
+      "name": "",
+      "summary": "Test DB: Entity export 2.0",
+      "color": {
+        "key": "color_3"
+      },
+      "issueColor": {
+        "key": "yellow"
+      },
+      "done": false
+    },
+    {
+      "id": 113946,
+      "key": "CRM-20386",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/113946",
+      "name": "",
+      "summary": "Keycloak CRM",
+      "color": {
+        "key": "color_13"
+      },
+      "issueColor": {
+        "key": "dark_green"
+      },
+      "done": false
+    },
+    {
+      "id": 113952,
+      "key": "CRM-20387",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/113952",
+      "name": "",
+      "summary": "Use new vault",
+      "color": {
+        "key": "color_12"
+      },
+      "issueColor": {
+        "key": "grey"
+      },
+      "done": false
+    },
+    {
+      "id": 113954,
+      "key": "CRM-20388",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/113954",
+      "name": "",
+      "summary": "Relaties: Search component",
+      "color": {
+        "key": "color_14"
+      },
+      "issueColor": {
+        "key": "dark_orange"
+      },
+      "done": false
+    },
+    {
+      "id": 111742,
+      "key": "CRM-20149",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/111742",
+      "name": "",
+      "summary": "Fulltext service improvements",
+      "color": {
+        "key": "color_12"
+      },
+      "issueColor": {
+        "key": "grey"
+      },
+      "done": false
+    },
+    {
+      "id": 106254,
+      "key": "CRM-20084",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/106254",
+      "name": "",
+      "summary": "Out of Office: Extend functionality",
+      "color": {
+        "key": "color_10"
+      },
+      "issueColor": {
+        "key": "blue"
+      },
+      "done": false
+    },
+    {
+      "id": 114387,
+      "key": "CRM-20415",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/114387",
+      "name": "",
+      "summary": "Datacenter switch",
+      "color": {
+        "key": "color_10"
+      },
+      "issueColor": {
+        "key": "blue"
+      },
+      "done": false
+    },
+    {
+      "id": 113302,
+      "key": "CRM-20307",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/113302",
+      "name": "",
+      "summary": "MoveID - Identity Verification Service",
+      "color": {
+        "key": "color_8"
+      },
+      "issueColor": {
+        "key": "dark_purple"
+      },
+      "done": false
+    },
+    {
+      "id": 112900,
+      "key": "CRM-20264",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/112900",
+      "name": "",
+      "summary": "CRM-Service open items Q2'25",
+      "color": {
+        "key": "color_13"
+      },
+      "issueColor": {
+        "key": "dark_green"
+      },
+      "done": false
+    },
+    {
+      "id": 44623,
+      "key": "CRM-10076",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/44623",
+      "name": "UTF8MB4 support needs database table changes",
+      "summary": "UTF8MB4 support needs database table changes",
+      "color": {
+        "key": "color_7"
+      },
+      "issueColor": {
+        "key": "purple"
+      },
+      "done": false
+    },
+    {
+      "id": 45578,
+      "key": "CRM-17386",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/45578",
+      "name": "Upgrade CRM Spring 5 to Spring 6",
+      "summary": "CRM Upgrade Jakarta - Tomcat - Spring (1)",
+      "color": {
+        "key": "color_13"
+      },
+      "issueColor": {
+        "key": "dark_green"
+      },
+      "done": false
+    },
+    {
+      "id": 99313,
+      "key": "CRM-19663",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/99313",
+      "name": "",
+      "summary": "Update PdfServer and make it REST API compatible",
+      "color": {
+        "key": "color_5"
+      },
+      "issueColor": {
+        "key": "dark_teal"
+      },
+      "done": false
+    },
+    {
+      "id": 98519,
+      "key": "CRM-19566",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/98519",
+      "name": "",
+      "summary": "Replace Ignite PubSub WS with AMQ Artemis",
+      "color": {
+        "key": "color_1"
+      },
+      "issueColor": {
+        "key": "dark_grey"
+      },
+      "done": false
+    },
+    {
+      "id": 106274,
+      "key": "CRM-20086",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/106274",
+      "name": "",
+      "summary": "Relaties: Create component",
+      "color": {
+        "key": "color_5"
+      },
+      "issueColor": {
+        "key": "dark_teal"
+      },
+      "done": false
+    },
+    {
+      "id": 113296,
+      "key": "CRM-20306",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/113296",
+      "name": "",
+      "summary": "CRM Upgrade Jakarta - Tomcat - Spring (2)",
+      "color": {
+        "key": "color_6"
+      },
+      "issueColor": {
+        "key": "green"
+      },
+      "done": false
+    },
+    {
+      "id": 96145,
+      "key": "CRM-19311",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/96145",
+      "name": "",
+      "summary": "Wizard for creating new \"Medewerker\"",
+      "color": {
+        "key": "color_9"
+      },
+      "issueColor": {
+        "key": "orange"
+      },
+      "done": false
+    },
+    {
+      "id": 97008,
+      "key": "CRM-19400",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/97008",
+      "name": "CRM Observability",
+      "summary": "CRM Observability - Collect application metrics",
+      "color": {
+        "key": "color_6"
+      },
+      "issueColor": {
+        "key": "green"
+      },
+      "done": false
+    },
+    {
+      "id": 113384,
+      "key": "CRM-20320",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/113384",
+      "name": "",
+      "summary": "Keycloak Hygiene",
+      "color": {
+        "key": "color_13"
+      },
+      "issueColor": {
+        "key": "dark_green"
+      },
+      "done": false
+    },
+    {
+      "id": 115623,
+      "key": "CRM-20493",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/115623",
+      "name": "",
+      "summary": "Fulltext Opensearch",
+      "color": {
+        "key": "color_14"
+      },
+      "issueColor": {
+        "key": "dark_orange"
+      },
+      "done": false
+    },
+    {
+      "id": 44837,
+      "key": "CRM-14139",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/44837",
+      "name": "Groepsafspraak test cases - 1",
+      "summary": "Groepsafspraak test cases 1",
+      "color": {
+        "key": "color_1"
+      },
+      "issueColor": {
+        "key": "purple"
+      },
+      "done": false
+    },
+    {
+      "id": 31791,
+      "key": "CRM-10248",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/31791",
+      "name": "Microservice - Document converter ",
+      "summary": "Microservice - Document converter ",
+      "color": {
+        "key": "color_1"
+      },
+      "issueColor": {
+        "key": "purple"
+      },
+      "done": false
+    },
+    {
+      "id": 89789,
+      "key": "CRM-18519",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/89789",
+      "name": "",
+      "summary": "Withdrawing sent emails ",
+      "color": {
+        "key": "color_11"
+      },
+      "issueColor": {
+        "key": "teal"
+      },
+      "done": false
+    },
+    {
+      "id": 95317,
+      "key": "CRM-19220",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/95317",
+      "name": "",
+      "summary": "Relaties to React - Filter & Grid screen",
+      "color": {
+        "key": "color_4"
+      },
+      "issueColor": {
+        "key": "dark_blue"
+      },
+      "done": false
+    },
+    {
+      "id": 98730,
+      "key": "CRM-19593",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/98730",
+      "name": "Notify working in the same object",
+      "summary": "Notify working in the same object",
+      "color": {
+        "key": "color_6"
+      },
+      "issueColor": {
+        "key": "green"
+      },
+      "done": false
+    },
+    {
+      "id": 111563,
+      "key": "CRM-20132",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/111563",
+      "name": "",
+      "summary": "Email-Service",
+      "color": {
+        "key": "color_13"
+      },
+      "issueColor": {
+        "key": "dark_green"
+      },
+      "done": false
+    },
+    {
+      "id": 117569,
+      "key": "CRM-20603",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/117569",
+      "name": "",
+      "summary": "CRM-Service open items Q3'25",
+      "color": {
+        "key": "color_10"
+      },
+      "issueColor": {
+        "key": "blue"
+      },
+      "done": false
+    },
+    {
+      "id": 45950,
+      "key": "CRM-15587",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/45950",
+      "name": "Core Dependencies Updaten",
+      "summary": "Core Dependencies Updaten",
+      "color": {
+        "key": "color_1"
+      },
+      "issueColor": {
+        "key": "dark_grey"
+      },
+      "done": false
+    },
+    {
+      "id": 44676,
+      "key": "CRM-7435",
+      "self": "https://rwnl.atlassian.net/rest/agile/1.0/epic/44676",
+      "name": "Support > 4",
+      "summary": "Support > 4",
+      "color": {
+        "key": "color_8"
+      },
+      "issueColor": {
+        "key": "dark_purple"
+      },
+      "done": false
+    }
+  ]
+}
