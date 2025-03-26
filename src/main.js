@@ -3,8 +3,8 @@ import { AUTO, Scale,Game } from 'phaser';
 
 const config = {
     type: AUTO,
-    width: 1024,
-    height: 768,
+    width: 1080,
+    height: 1080,
     parent: 'game-container',
     backgroundColor: '#028af8',
     scale: {

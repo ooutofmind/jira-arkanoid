@@ -1,23 +1,25 @@
 import {Scene} from 'phaser';
 import ballImg from '/public/assets/ballGrey.png';
-import paddleImg from '/public/assets/paddleBlu.png';
-import yellowBlockImg from '/public/assets/element_yellow_rectangle.png';
+import paddleImg from '/public/assets/paddleRed.png';
+import epicBlockImg from '/public/assets/element_purple_rectangle.png';
 import epicsJson from '../epics.json';
 
 export class Game extends Scene {
     constructor() {
         super({key: 'breakout'});
+        this.__defaultVelocity = 500;
+        this.__paddleBottomOffset = 70;
     }
 
     preload() {
         this.load.image('paddle', paddleImg);
         this.load.image('ball', ballImg);
-        this.load.image('block', yellowBlockImg);
+        this.load.image('block', epicBlockImg);
     }
 
     create() {
         this.physics.world.setBoundsCollision(true, true, true, false);
-        this.paddle = this.physics.add.sprite(512, 720, 'paddle').setImmovable();
+        this.paddle = this.physics.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height - this.__paddleBottomOffset, 'paddle').setImmovable();
 
         this.ball = this.physics.add.sprite(this.paddle.x, this.paddle.y - 30, 'ball')
             .setBounce(1)
@@ -28,18 +30,32 @@ export class Game extends Scene {
         const epicNames = this.extractIssues(epicsJson);
         const fibonacciHits = [1, 2, 3, 5, 8];
         for (let i = 0; i < 5; i++) {
-            for (let j = 0; j < 8; j++) {
-                let x = 90 + j * 120;
-                let y = 100 + i * 50;
+            for (let j = 0; j < 6; j++) {
+                let x = 140 + j * 155;
+                let y = 100 + i * 80;
                 let block = this.blocks.create(x, y, 'block');
-                block.setDisplaySize(118, 50);
+                block.setScale(2.4, 2.3);
                 block.refreshBody();
                 block.hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits);
                 const epicName = Phaser.Utils.Array.GetRandom(epicNames);
-                block.textRefSummary = this.add.text(x, y - 10, epicName + ": ", {fontSize: '10px', fill: '#fff'})
-                    .setOrigin(0.5)
+                block.textRefSummary = this.add.text(x - 6, y, epicName)
+                    .setStyle({
+                        fontFamily: 'BlinkMacSystemFont, "Segoe UI"',
+                        fontSize: '12px',
+                        fill: '#f5f5f5',
+                        backgroundColor: '#20845a',
+                        wordWrap: {
+                            width: block.displayWidth - 35
+                        }
+                    })
+                    .setOrigin(0.5, 0.5)
                     .setDepth(1);
-                block.textRef = this.add.text(x, y, `Story points: ${block.hitPoints}`, {fontSize: '10px', fill: '#fff'})
+                block.textRef = this.add.text(x + 63, y, block.hitPoints)
+                    .setStyle({
+                        fontSize: '20px',
+                        fontFamily: 'BlinkMacSystemFont, "Segoe UI"',
+                        fill: '#fff'
+                    })
                     .setOrigin(0.5)
                     .setDepth(1);
             }
@@ -56,8 +72,8 @@ export class Game extends Scene {
             return [];
         }
 
-        return jsonData.values.map(issue => `${issue.key}: ${issue.summary}`)
-            .map(summary => this.truncateWithEllipsis(summary, 15));
+        return jsonData.values.map(issue => issue.summary.toUpperCase())
+            .map(summary => this.truncateWithEllipsis(summary, 45));
     }
 
     truncateWithEllipsis(str, maxLength) {
@@ -66,7 +82,7 @@ export class Game extends Scene {
 
     hitBlock(ball, block) {
         block.hitPoints--;
-        block.textRef.setText(`Story points: ${block.hitPoints}`);
+        block.textRef.setText(block.hitPoints);
         if (block.hitPoints <= 0) {
             block.destroy();
             block.textRef.destroy();
@@ -113,9 +129,9 @@ export class Game extends Scene {
 
     update() {
         if (this.cursors.left.isDown) {
-            this.paddle.setVelocityX(-300);
+            this.paddle.setVelocityX(-this.__defaultVelocity);
         } else if (this.cursors.right.isDown) {
-            this.paddle.setVelocityX(300);
+            this.paddle.setVelocityX(this.__defaultVelocity);
         } else {
             this.paddle.setVelocityX(0);
         }
@@ -123,7 +139,7 @@ export class Game extends Scene {
         this.paddle.x = Phaser.Math.Clamp(this.paddle.x, this.paddle.displayWidth / 2, this.sys.game.config.width - this.paddle.displayWidth / 2);
 
         if (this.cursors.up.isDown && this.ball.getData('onPaddle')) {
-            this.ball.setVelocity(-75, -300);
+            this.ball.setVelocity(-75, -this.__defaultVelocity);
             this.ball.setData('onPaddle', false);
         }
 
@@ -132,7 +148,7 @@ export class Game extends Scene {
             this.ball.x = this.paddle.x;
         }
 
-        if (this.ball.y > 768) {
+        if (this.ball.y > this.sys.game.config.height + 5) {
             this.resetBall();
         }
     }
