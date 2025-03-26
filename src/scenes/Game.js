@@ -42,30 +42,7 @@ export class Game extends Scene {
         this.physics.add.collider(this.ball, this.paddle, this.hitPaddle, null, this);
         this.physics.add.collider(this.ball, this.blocks, this.hitBlock, null, this);
 
-        //  Input events
-        this.input.on('pointermove', function (pointer)
-        {
-
-            //  Keep the paddle within the game
-            this.paddle.x = Phaser.Math.Clamp(pointer.x, 52, 748);
-
-            if (this.ball.getData('onPaddle'))
-            {
-                this.ball.x = this.paddle.x;
-            }
-
-        }, this);
-
-        this.input.on('pointerup', function ()
-        {
-
-            if (this.ball.getData('onPaddle'))
-            {
-                this.ball.setVelocity(-75, -300);
-                this.ball.setData('onPaddle', false);
-            }
-
-        }, this);
+        this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     hitBlock(ball, block) {
@@ -125,6 +102,24 @@ export class Game extends Scene {
     }
 
     update() {
+        if (this.cursors.left.isDown) {
+            this.paddle.setVelocityX(-300);
+        } else if (this.cursors.right.isDown) {
+            this.paddle.setVelocityX(300);
+        } else {
+            this.paddle.setVelocityX(0);
+        }
+
+        if (this.cursors.up.isDown && this.ball.getData('onPaddle')) {
+            this.ball.setVelocity(-75, -300);
+            this.ball.setData('onPaddle', false);
+        }
+
+        // Keep the ball on the paddle before launch
+        if (this.ball.getData('onPaddle')) {
+            this.ball.x = this.paddle.x;
+        }
+
         if (this.ball.y > 600)
         {
             this.resetBall();
