@@ -100,6 +100,8 @@ export class Game extends Scene {
             this.paddle.setVelocityX(0);
         }
 
+        this.paddle.x = Phaser.Math.Clamp(this.paddle.x, this.paddle.displayWidth / 2, this.sys.game.config.width - this.paddle.displayWidth / 2);
+
         if (this.cursors.up.isDown && this.ball.getData('onPaddle')) {
             this.ball.setVelocity(-75, -300);
             this.ball.setData('onPaddle', false);
