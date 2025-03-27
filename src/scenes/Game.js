@@ -18,6 +18,10 @@ export class Game extends Scene {
     }
 
     create() {
+        this.score = 0;
+        const textStyle = { fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff', stroke: '#000000', strokeThickness: 8 };
+        this.scoreText = this.add.text(32, this.sys.game.config.height - 55, "Score: 0", textStyle).setDepth(1);
+
         this.physics.world.setBoundsCollision(true, true, true, false);
         this.paddle = this.physics.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height - this.__paddleBottomOffset, 'paddle').setImmovable();
 
@@ -43,6 +47,7 @@ export class Game extends Scene {
                 block.setScale(2.4, 2.3);
                 block.refreshBody();
                 block.hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits);
+                block.storyPoints = block.hitPoints;
                 const epicName = Phaser.Utils.Array.GetRandom(epicNames);
                 block.textRefSummary = this.add.text(x - 6, y, epicName)
                     .setStyle({
@@ -90,6 +95,8 @@ export class Game extends Scene {
         block.hitPoints--;
         block.textRef.setText(block.hitPoints);
         if (block.hitPoints <= 0) {
+            this.score += block.storyPoints;
+            this.scoreText.setText(`Score: ${this.score}`);
             block.destroy();
             block.textRef.destroy();
             block.textRefSummary.destroy();
@@ -125,6 +132,10 @@ export class Game extends Scene {
 
     gameOver() {
         this.ball.setVelocity(0)
+        const highscore = this.registry.get('highscore');
+        if (this.score > highscore) {
+            this.registry.set('highscore', this.score)
+        }
         this.time.delayedCall(1000, () => this.scene.start('GameOver'));
     }
 
