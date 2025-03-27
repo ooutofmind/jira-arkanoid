@@ -43,10 +43,10 @@ export class Game extends Scene {
         ];
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 6; j++) {
-                let x = 140 + j * 155;
+                let x = 150 + j * 155;
                 let y = 100 + i * 80;
                 let block = this.blocks.create(x, y, 'block');
-                block.setScale(2.4, 2.3);
+                block.setScale(2.419, 2.495);
                 block.refreshBody();
                 block.hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits);
                 block.storyPoints = block.hitPoints;
