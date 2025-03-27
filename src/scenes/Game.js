@@ -1,7 +1,12 @@
 import {Scene} from 'phaser';
 import ballImg from '/public/assets/ballGrey.png';
 import paddleImg from '/public/assets/paddleRed.png';
-import epicBlockImg from '/public/assets/element_purple_rectangle.png';
+import greyBlockPng from '/public/assets/element_grey_rectangle.png';
+import redBlockPng from '/public/assets/element_red_rectangle.png';
+import yellowBlockPng from '/public/assets/element_yellow_rectangle.png';
+import blueBlockPng from '/public/assets/element_blue_rectangle.png';
+import purpleBlockPng from '/public/assets/element_purple_rectangle.png';
+import greenBlockPng from '/public/assets/element_green_rectangle.png';
 import epicsJson from '../epics.json';
 
 export class Game extends Scene {
@@ -14,7 +19,13 @@ export class Game extends Scene {
     preload() {
         this.load.image('paddle', paddleImg);
         this.load.image('ball', ballImg);
-        this.load.image('block', epicBlockImg);
+
+        this.load.image('greyBlock', greyBlockPng);
+        this.load.image('redBlock', redBlockPng);
+        this.load.image('yellowBlock', yellowBlockPng);
+        this.load.image('blueBlock', blueBlockPng);
+        this.load.image('purpleBlock', purpleBlockPng);
+        this.load.image('greenBlock', greenBlockPng);
     }
 
     create() {
@@ -47,36 +58,32 @@ export class Game extends Scene {
             5, 5,
             8
         ];
-        for (let i = 0; i < 5; i++) {
+        const blockSpriteMap = ['greyBlock', 'redBlock', 'yellowBlock', 'blueBlock', 'purpleBlock', 'greenBlock', ]
+        for (let i = 0; i < 6; i++) {
             for (let j = 0; j < 6; j++) {
                 let x = 150 + j * 155;
                 let y = 180 + i * 80;
-                let block = this.blocks.create(x, y, 'block');
+                let block = this.blocks.create(x, y, 'greyBlock');
                 block.setScale(2.419, 2.495);
                 block.refreshBody();
                 block.hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits);
                 block.storyPoints = block.hitPoints;
                 const epicName = Phaser.Utils.Array.GetRandom(epicNames);
+                let blockStyle = this.getBlockStyle(i, block.displayWidth);
                 block.textRefSummary = this.add.text(x - 6, y, epicName)
-                    .setStyle({
-                        fontFamily: 'BlinkMacSystemFont, "Segoe UI"',
-                        fontSize: '12px',
-                        fill: '#f5f5f5',
-                        backgroundColor: '#20845a',
-                        wordWrap: {
-                            width: block.displayWidth - 35
-                        }
-                    })
+                    .setStyle(blockStyle)
                     .setOrigin(0.5, 0.5)
                     .setDepth(1);
+                block.textRefSummary.bg = this.createRoundRect(block.textRefSummary, this.hexToNumberFormat(blockStyle.backgroundColor));
                 block.textRef = this.add.text(x + 63, y, block.hitPoints)
                     .setStyle({
-                        fontSize: '20px',
+                        fontSize: '18px',
                         fontFamily: 'BlinkMacSystemFont, "Segoe UI"',
-                        fill: '#fff'
+                        fill: '#3a4977'
                     })
                     .setOrigin(0.5)
                     .setDepth(1);
+                block.textRef.bg = this.createRoundRect(block.textRef, 0xf5f5f5);
             }
         }
 
@@ -84,6 +91,54 @@ export class Game extends Scene {
         this.physics.add.collider(this.ball, this.blocks, this.hitBlock, null, this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    hexToNumberFormat(hex) {
+        // Remove the '#' if present
+        hex = hex.replace(/^#/, '');
+
+        // Convert to a hexadecimal number representation
+        return `0x${hex}`;
+    }
+
+    createRoundRect(text, fill)
+    {
+        const bg = this.add.graphics();
+        bg.fillStyle(fill, 1); // Red background
+        let padding = 8;
+        bg.fillRoundedRect(text.x - text.displayOriginX - padding/2, text.y - text.displayOriginY - padding/2, text.displayWidth + padding, text.displayHeight + padding, 6);
+        bg.setDepth(text.depth - 1);
+        return bg
+    }
+
+    getBlockStyle(rowIndex, blockWidth) {
+        let baseStyle = {
+            fontFamily: 'BlinkMacSystemFont, "Segoe UI"',
+            fontSize: '12px',
+            wordWrap: {
+                width: blockWidth - 35
+            }
+        };
+        if (rowIndex === 5) {
+            baseStyle.backgroundColor = '#20845a';
+            baseStyle.fill = '#f5f5f5'
+        } else if (rowIndex === 4) {
+            baseStyle.backgroundColor = '#0c66e4';
+            baseStyle.fill = '#f5f5f5'
+        } else if (rowIndex === 2) {
+            baseStyle.backgroundColor = '#c9372c';
+            baseStyle.fill = '#f5f5f5'
+        } else if (rowIndex === 3) {
+            baseStyle.backgroundColor = '#ffd5d2';
+            baseStyle.fill = '#ae2e24'
+        } else if (rowIndex === 1) {
+            baseStyle.backgroundColor = '#f8e6a0';
+            baseStyle.fill = '#7f5f01'
+        } else if (rowIndex === 0) {
+            baseStyle.backgroundColor = '#6e5dc6';
+            baseStyle.fill = '#f5f5f5'
+        }
+        return baseStyle
     }
 
     extractIssues(jsonData) {
@@ -107,7 +162,9 @@ export class Game extends Scene {
             this.scoreText.setText(`Score: ${this.score}`);
             block.destroy();
             block.textRef.destroy();
+            block.textRef.bg.destroy();
             block.textRefSummary.destroy();
+            block.textRefSummary.bg.destroy();
             if (this.blocks.countActive() === 0) {
                 this.gameOver();
             }
