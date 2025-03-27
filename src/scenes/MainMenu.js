@@ -31,7 +31,7 @@ export class MainMenu extends Scene {
         this.add.text(512, 300, 'Realworks\nRoadshow', h1Style)
             .setOrigin(0, 0.5)
 
-        let centerX = this.sys.game.config.width/2;
+        let centerX = this.sys.game.config.width / 2;
 
         this.add.text(centerX, 550, 'CRM 2025', h1Style)
             .setOrigin(0.5)
@@ -55,8 +55,12 @@ export class MainMenu extends Scene {
             .setAlign('center')
             .setOrigin(0.5);
 
-        this.input.once('pointerdown', () => {
-            this.scene.start('Game');
-        });
+        this.input.keyboard.on('keydown-ENTER', () => this.startGame(), this);
+        this.input.keyboard.on('keydown-SPACE', () => this.startGame(), this);
+        this.input.once('pointerdown', () => this.startGame(), this);
+    }
+
+    startGame() {
+        this.scene.start('Game');
     }
 }
