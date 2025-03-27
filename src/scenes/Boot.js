@@ -20,6 +20,7 @@ export class Boot extends Scene
     {
         //  A global value to store the highscore in
         this.registry.set('highscore', 0);
+        this.registry.set('lives', 3);
 
         this.scene.start('Preloader');
 

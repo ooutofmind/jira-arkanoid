@@ -18,8 +18,10 @@ export class Game extends Scene {
     }
 
     create() {
-        this.score = 0;
         const textStyle = { fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff', stroke: '#000000', strokeThickness: 8 };
+        this.lives = this.registry.get('lives');
+        this.livesText = this.add.text(this.sys.game.config.width - 200, this.sys.game.config.height - 55, `Balls: ${this.lives}`, textStyle).setDepth(1);
+        this.score = 0;
         this.scoreText = this.add.text(32, this.sys.game.config.height - 55, "Score: 0", textStyle).setDepth(1);
 
         this.physics.world.setBoundsCollision(true, true, true, false);
@@ -161,7 +163,13 @@ export class Game extends Scene {
         }
 
         if (this.ball.y > this.sys.game.config.height + 5) {
+            this.lives--;
+            this.livesText.setText(`Balls: ${this.lives}`);
             this.resetBall();
+
+            if (this.lives === 0) {
+                this.gameOver();
+            }
         }
     }
 }
