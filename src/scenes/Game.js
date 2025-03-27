@@ -18,7 +18,13 @@ export class Game extends Scene {
     }
 
     create() {
-        const textStyle = { fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff', stroke: '#000000', strokeThickness: 8 };
+        const textStyle = {
+            fontFamily: 'Arial Black',
+            fontSize: 38,
+            color: '#ffffff',
+            stroke: '#000000',
+            strokeThickness: 8
+        };
         this.lives = this.registry.get('lives');
         this.livesText = this.add.text(this.sys.game.config.width - 200, this.sys.game.config.height - 55, `Balls: ${this.lives}`, textStyle).setDepth(1);
         this.score = 0;
@@ -134,10 +140,7 @@ export class Game extends Scene {
 
     gameOver() {
         this.ball.setVelocity(0)
-        const highscore = this.registry.get('highscore');
-        if (this.score > highscore) {
-            this.registry.set('highscore', this.score)
-        }
+        this.registry.set('highscore', this.score)
         this.time.delayedCall(1000, () => this.scene.start('GameOver'));
     }
 
