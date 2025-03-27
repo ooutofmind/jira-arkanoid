@@ -11,9 +11,8 @@ export class MainMenu extends Scene {
     }
 
     create() {
-        this.add.image(512, 384, 'background');
-
-        const logo = this.add.image(512, -270, 'logo');
+        const logo = this.add.image(300, -270, 'logo')
+            .setScale(0.6);
 
         this.tweens.add({
             targets: logo,
@@ -22,22 +21,37 @@ export class MainMenu extends Scene {
             ease: 'Bounce'
         });
 
+        const h1Style = {
+            fontFamily: 'Arial Black',
+            fontSize: 80,
+            color: '#ffffff',
+            stroke: '#000000',
+            strokeThickness: 5
+        };
+        this.add.text(512, 300, 'Realworks\nRoadshow', h1Style)
+            .setOrigin(0, 0.5)
+
+        let centerX = this.sys.game.config.width/2;
+
+        this.add.text(centerX, 550, 'CRM 2025', h1Style)
+            .setOrigin(0.5)
+
         const textStyle = {
             fontFamily: 'Arial Black',
             fontSize: 38,
             color: '#ffffff',
             stroke: '#000000',
-            strokeThickness: 8
+            strokeThickness: 5
         };
 
         const instructions = [
-            "How many tasks can you close",
+            "How many CRM tasks",
+            "can you close",
             "before the end of Q2?",
             "",
             "Click to Start!"
         ]
-
-        this.add.text(512, 700, instructions, textStyle)
+        this.add.text(centerX, 820, instructions, textStyle)
             .setAlign('center')
             .setOrigin(0.5);
 
