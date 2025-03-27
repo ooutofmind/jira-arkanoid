@@ -1,22 +1,16 @@
 import {Scene} from 'phaser';
+import logo from '../../public/assets/Roadshow.png'
 
 export class MainMenu extends Scene {
     constructor() {
         super('MainMenu');
     }
 
+    preload() {
+        this.load.image('logo', logo)
+    }
+
     create() {
-        //  Get the current highscore from the registry
-        const score = this.registry.get('highscore');
-
-        const textStyle = {
-            fontFamily: 'Arial Black',
-            fontSize: 38,
-            color: '#ffffff',
-            stroke: '#000000',
-            strokeThickness: 8
-        };
-
         this.add.image(512, 384, 'background');
 
         const logo = this.add.image(512, -270, 'logo');
@@ -28,7 +22,13 @@ export class MainMenu extends Scene {
             ease: 'Bounce'
         });
 
-        this.add.text(32, 32, `High Score: ${score}`, textStyle);
+        const textStyle = {
+            fontFamily: 'Arial Black',
+            fontSize: 38,
+            color: '#ffffff',
+            stroke: '#000000',
+            strokeThickness: 8
+        };
 
         const instructions = [
             "How many tasks can you close",
@@ -37,12 +37,12 @@ export class MainMenu extends Scene {
             "Click to Start!"
         ]
 
-        this.add.text(512, 550, instructions, textStyle).setAlign('center').setOrigin(0.5);
+        this.add.text(512, 700, instructions, textStyle)
+            .setAlign('center')
+            .setOrigin(0.5);
 
         this.input.once('pointerdown', () => {
-
             this.scene.start('Game');
-
         });
     }
 }
