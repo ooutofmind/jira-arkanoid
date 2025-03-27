@@ -50,7 +50,7 @@ export class Game extends Scene {
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 6; j++) {
                 let x = 150 + j * 155;
-                let y = 100 + i * 80;
+                let y = 180 + i * 80;
                 let block = this.blocks.create(x, y, 'block');
                 block.setScale(2.419, 2.495);
                 block.refreshBody();
