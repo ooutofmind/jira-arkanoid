@@ -26,11 +26,17 @@ export class GameOver extends Scene {
 
         this.scores.sort((a, b) => b.highscore - a.highscore);
         this.playerName = "";
-        let cellStyle = {fontSize: '32px', color: '#ffff00'};
+        let cellStyle = {
+            fontFamily: 'Arial Black',
+            fontSize: 32,
+            color: '#ffffff',
+            stroke: '#000000',
+            strokeThickness: 8
+        };
         this.scores.forEach((v, i) => {
             const m = i + 1;
             let y = 400 + m * 50;
-            const rankCell = this.add.text(400, y, `${m}: ${v.highscore}`, cellStyle)
+            const rankCell = this.add.text(400, y, `#${m}:      ${v.highscore}`, cellStyle)
                 .setOrigin(0, 0.5)
 
             const nameCell = this.add.text(600, y, v.name, cellStyle)
