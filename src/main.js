@@ -1,6 +1,5 @@
 import {AUTO, Scale} from 'phaser';
 import {Boot} from "./scenes/Boot";
-import {Preloader} from "./scenes/Preloader";
 import {MainMenu} from "./scenes/MainMenu";
 import {GameOver} from "./scenes/GameOver";
 import {Game as MainGame} from './scenes/Game';
@@ -20,7 +19,6 @@ const config = {
     },
     scene: [
         Boot,
-        Preloader,
         MainMenu,
         MainGame,
         GameOver
