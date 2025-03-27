@@ -58,13 +58,12 @@ export class Game extends Scene {
             5, 5,
             8
         ];
-        const blockSpriteMap = ['greyBlock', 'redBlock', 'yellowBlock', 'blueBlock', 'purpleBlock', 'greenBlock', ]
         for (let i = 0; i < 6; i++) {
             for (let j = 0; j < 6; j++) {
-                let x = 150 + j * 155;
-                let y = 180 + i * 80;
+                let x = 115 + j * 170;
+                let y = 170 + i * 80;
                 let block = this.blocks.create(x, y, 'greyBlock');
-                block.setScale(2.419, 2.495);
+                block.setScale(2.7, 2.495);
                 block.refreshBody();
                 block.hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits);
                 block.storyPoints = block.hitPoints;
@@ -75,7 +74,7 @@ export class Game extends Scene {
                     .setOrigin(0.5, 0.5)
                     .setDepth(1);
                 block.textRefSummary.bg = this.createRoundRect(block.textRefSummary, this.hexToNumberFormat(blockStyle.backgroundColor));
-                block.textRef = this.add.text(x + 63, y, block.hitPoints)
+                block.textRef = this.add.text(x + 70, y, block.hitPoints)
                     .setStyle({
                         fontSize: '18px',
                         fontFamily: 'BlinkMacSystemFont, "Segoe UI"',
@@ -101,12 +100,11 @@ export class Game extends Scene {
         return `0x${hex}`;
     }
 
-    createRoundRect(text, fill)
-    {
+    createRoundRect(text, fill) {
         const bg = this.add.graphics();
         bg.fillStyle(fill, 1); // Red background
         let padding = 8;
-        bg.fillRoundedRect(text.x - text.displayOriginX - padding/2, text.y - text.displayOriginY - padding/2, text.displayWidth + padding, text.displayHeight + padding, 6);
+        bg.fillRoundedRect(text.x - text.displayOriginX - padding / 2, text.y - text.displayOriginY - padding / 2, text.displayWidth + padding, text.displayHeight + padding, 6);
         bg.setDepth(text.depth - 1);
         return bg
     }
@@ -146,7 +144,9 @@ export class Game extends Scene {
             return [];
         }
 
-        return jsonData.values.map(issue => issue.summary.toUpperCase())
+        return jsonData.values
+            .map(issue => issue.name || issue.summary)
+            .map(name => name.toUpperCase())
             .map(summary => this.truncateWithEllipsis(summary, 45));
     }
 
