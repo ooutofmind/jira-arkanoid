@@ -1,5 +1,9 @@
-import { Game as MainGame } from './scenes/Game';
-import { AUTO, Scale,Game } from 'phaser';
+import {AUTO, Scale} from 'phaser';
+import {Boot} from "./scenes/Boot";
+import {Preloader} from "./scenes/Preloader";
+import {MainMenu} from "./scenes/MainMenu";
+import {GameOver} from "./scenes/GameOver";
+import {Game as MainGame} from './scenes/Game';
 
 const config = {
     type: AUTO,
@@ -15,7 +19,11 @@ const config = {
         default: 'arcade'
     },
     scene: [
-        MainGame
+        Boot,
+        Preloader,
+        MainMenu,
+        MainGame,
+        GameOver
     ]
 };
 

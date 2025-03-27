@@ -6,7 +6,7 @@ import epicsJson from '../epics.json';
 
 export class Game extends Scene {
     constructor() {
-        super({key: 'breakout'});
+        super('Game');
         this.__defaultVelocity = 500;
         this.__paddleBottomOffset = 70;
     }
@@ -28,7 +28,13 @@ export class Game extends Scene {
 
         this.blocks = this.physics.add.staticGroup();
         const epicNames = this.extractIssues(epicsJson);
-        const fibonacciHits = [1, 2, 3, 5, 8];
+        const fibonacciHits = [
+            1, 1, 1, 1, 1, 1,
+            2, 2, 2, 2,
+            3, 3, 3,
+            5, 5,
+            8
+        ];
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 6; j++) {
                 let x = 140 + j * 155;
@@ -88,7 +94,7 @@ export class Game extends Scene {
             block.textRef.destroy();
             block.textRefSummary.destroy();
             if (this.blocks.countActive() === 0) {
-                this.resetLevel();
+                this.gameOver();
             }
         }
     }
@@ -117,14 +123,9 @@ export class Game extends Scene {
         this.ball.setData('onPaddle', true);
     }
 
-    resetLevel() {
-        this.resetBall();
-
-        this.blocks.children.each(brick => {
-
-            brick.enableBody(false, 0, 0, true, true);
-
-        });
+    gameOver() {
+        this.ball.setVelocity(0)
+        this.time.delayedCall(1000, () => this.scene.start('GameOver'));
     }
 
     update() {
