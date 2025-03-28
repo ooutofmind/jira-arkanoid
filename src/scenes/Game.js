@@ -8,6 +8,7 @@ import blueBlockPng from '/public/assets/element_blue_rectangle.png';
 import purpleBlockPng from '/public/assets/element_purple_rectangle.png';
 import greenBlockPng from '/public/assets/element_green_rectangle.png';
 import epicsJson from '../epics.json';
+import levelsDef from '../levels.json';
 
 export class Game extends Scene {
     constructor() {
@@ -50,6 +51,18 @@ export class Game extends Scene {
         this.ball.setData('onPaddle', true);
 
         this.blocks = this.physics.add.staticGroup();
+
+        this.level = "Q2"
+        this.setupBlocks();
+
+        this.physics.add.collider(this.ball, this.paddle, this.hitPaddle, null, this);
+        this.physics.add.collider(this.ball, this.blocks, this.hitBlock, null, this);
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    setupBlocks() {
+        const levelName = this.level;
         const epicNames = this.extractIssues(epicsJson);
         const fibonacciHits = [
             1, 1, 1, 1, 1, 1,
@@ -58,14 +71,26 @@ export class Game extends Scene {
             5, 5,
             8
         ];
-        for (let i = 0; i < 6; i++) {
-            for (let j = 0; j < 6; j++) {
+        const levelDef = levelsDef[levelName];
+
+        for (let i = 0; i < levelDef.map.length; i++) {
+            let row = levelDef.map[i];
+            for (let j = 0; j < row.length; j++) {
+                let hitPoints = row[j];
+                if ("*" === hitPoints) {
+                    hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits)
+                } else {
+                    hitPoints = +hitPoints;
+                }
+                if(hitPoints === 0) {
+                    continue
+                }
                 let x = 115 + j * 170;
                 let y = 170 + i * 80;
                 let block = this.blocks.create(x, y, 'greyBlock');
                 block.setScale(2.7, 2.495);
                 block.refreshBody();
-                block.hitPoints = Phaser.Utils.Array.GetRandom(fibonacciHits);
+                block.hitPoints = hitPoints;
                 block.storyPoints = block.hitPoints;
                 const epicName = Phaser.Utils.Array.GetRandom(epicNames);
                 let blockStyle = this.getBlockStyle(i, block.displayWidth);
@@ -85,11 +110,6 @@ export class Game extends Scene {
                 block.textRef.bg = this.createRoundRect(block.textRef, 0xf5f5f5);
             }
         }
-
-        this.physics.add.collider(this.ball, this.paddle, this.hitPaddle, null, this);
-        this.physics.add.collider(this.ball, this.blocks, this.hitBlock, null, this);
-
-        this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     hexToNumberFormat(hex) {
@@ -166,7 +186,28 @@ export class Game extends Scene {
             block.textRefSummary.destroy();
             block.textRefSummary.bg.destroy();
             if (this.blocks.countActive() === 0) {
-                this.gameOver();
+                const thisLevel = this.level
+                this.level = levelsDef[this.level].nextLevel
+                if (!this.level) {
+                    this.gameOver();
+                } else {
+                    const textStyle = {
+                        fontFamily: 'Arial Black',
+                        fontSize: 38,
+                        color: '#ffffff',
+                        stroke: '#000000',
+                        strokeThickness: 8
+                    }
+                    this.tmpText = this.add.text(this.sys.game.config.width /2, this.sys.game.config.height/2, `LEVEL ${thisLevel} CLEAR!`, textStyle)
+                        .setOrigin(0.5)
+                        .setDepth(1);
+                    this.ball.setVelocity(0)
+                    this.time.delayedCall(2000, () => {
+                        this.tmpText.destroy()
+                        this.resetBall()
+                        this.setupBlocks()
+                    });
+                }
             }
         }
     }
