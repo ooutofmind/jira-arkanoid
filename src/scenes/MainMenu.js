@@ -11,6 +11,10 @@ export class MainMenu extends Scene {
     }
 
     create() {
+        this.input.gamepad.once('connected', (pad) => {
+            this.gamepad = pad;
+        });
+
         const logo = this.add.image(300, -270, 'logo')
             .setScale(0.6);
 
@@ -58,6 +62,12 @@ export class MainMenu extends Scene {
         this.input.keyboard.on('keydown-ENTER', () => this.startGame(), this);
         this.input.keyboard.on('keydown-SPACE', () => this.startGame(), this);
         this.input.once('pointerdown', () => this.startGame(), this);
+    }
+
+    update() {
+        if (this.gamepad && (this.gamepad.buttons[0].pressed || this.gamepad.buttons[12].pressed)) {
+            this.startGame()
+        }
     }
 
     startGame() {

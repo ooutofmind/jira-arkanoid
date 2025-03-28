@@ -30,6 +30,9 @@ export class Game extends Scene {
     }
 
     create() {
+
+        this.gamepad = this.input.gamepad.pad1;
+
         const textStyle = {
             fontFamily: 'Arial Black',
             fontSize: 38,
@@ -82,7 +85,7 @@ export class Game extends Scene {
                 } else {
                     hitPoints = +hitPoints;
                 }
-                if(hitPoints === 0) {
+                if (hitPoints === 0) {
                     continue
                 }
                 let x = 115 + j * 170;
@@ -198,7 +201,7 @@ export class Game extends Scene {
                         stroke: '#000000',
                         strokeThickness: 8
                     }
-                    this.tmpText = this.add.text(this.sys.game.config.width /2, this.sys.game.config.height/2, `LEVEL ${thisLevel} CLEAR!`, textStyle)
+                    this.tmpText = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, `LEVEL ${thisLevel} CLEAR!`, textStyle)
                         .setOrigin(0.5)
                         .setDepth(1);
                     this.ball.setVelocity(0)
@@ -243,17 +246,30 @@ export class Game extends Scene {
     }
 
     update() {
-        if (this.cursors.left.isDown) {
+        let moveLeft = this.cursors.left.isDown;
+        let moveRight = this.cursors.right.isDown;
+        let moveUp = this.cursors.up.isDown;
+        let ratio = 1;
+
+        if (this.gamepad) {
+            moveLeft = this.gamepad.axes[0] < -0.2 || this.gamepad.left;  // Left stick left
+            moveRight = this.gamepad.axes[0] > 0.2 || this.gamepad.right;  // Left stick right
+            moveUp = this.gamepad.buttons[0].pressed || this.gamepad.buttons[12].pressed || this.gamepad.axes[1] < -0.5;
+        }
+
+        if (moveLeft) {
             this.paddle.setVelocityX(-this.__defaultVelocity);
-        } else if (this.cursors.right.isDown) {
-            this.paddle.setVelocityX(this.__defaultVelocity);
         } else {
-            this.paddle.setVelocityX(0);
+            if (moveRight) {
+                this.paddle.setVelocityX(this.__defaultVelocity);
+            } else {
+                this.paddle.setVelocityX(0);
+            }
         }
 
         this.paddle.x = Phaser.Math.Clamp(this.paddle.x, this.paddle.displayWidth / 2, this.sys.game.config.width - this.paddle.displayWidth / 2);
 
-        if (this.cursors.up.isDown && this.ball.getData('onPaddle')) {
+        if (moveUp && this.ball.getData('onPaddle')) {
             this.ball.setVelocity(-75, -this.__defaultVelocity);
             this.ball.setData('onPaddle', false);
         }
