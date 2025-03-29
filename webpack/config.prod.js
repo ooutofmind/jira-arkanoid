@@ -44,10 +44,6 @@ module.exports = {
             }
         ]
     },
-    output: {
-        path: path.resolve(__dirname, '../docs'),
-        publicPath: 'auto'
-    },
     optimization: {
         minimizer: [
             new TerserPlugin({
