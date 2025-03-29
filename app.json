@@ -1,0 +1,8 @@
+{
+    "name": "Jira Arkanoid",
+    "description": "A classic game adaptation and just a fun project built on Phaser",
+    "repository": "https://github.com/ooutofmind/jira-arkanoid",
+    "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
+    "keywords": ["node", "express", "phaser", "arkanoid", "game"],
+    "image": "heroku/nodejs"
+}
