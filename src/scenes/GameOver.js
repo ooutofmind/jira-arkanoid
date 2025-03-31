@@ -20,13 +20,19 @@ export class GameOver extends Scene {
                     strokeThickness: 8
                 };
 
-                this.add.text(this.sys.game.config.width / 2, 300, `Game Over`, textStyle).setAlign('center').setOrigin(0.5);
+                this.add.text(this.sys.game.config.width / 2, 300, `Game Over`, textStyle)
+                    .setAlign('center').setOrigin(0.5);
+                this.add.text(this.sys.game.config.width / 2, 360, `Enter your name`, textStyle)
+                    .setFontSize(40)
+                    .setAlign('center')
+                    .setOrigin(0.5);
+                leaderboard = leaderboard.slice(0, 9);
                 leaderboard.push({
                     "name": "_",
                     "score": score
                 });
 
-                leaderboard.sort((a, b) => b.highscore - a.highscore);
+                leaderboard.sort((a, b) => b.score - a.score);
                 this.playerName = "";
                 let cellStyle = {
                     fontFamily: 'Arial Black',
@@ -38,13 +44,16 @@ export class GameOver extends Scene {
                 leaderboard.forEach((v, i) => {
                     const m = i + 1;
                     let y = 400 + m * 50;
-                    this.add.text(400, y, `#${m}:      ${v.score}`, cellStyle)
+                    let rankCell = this.add.text(400, y, `#${m}:      ${v.score}`, cellStyle)
                         .setOrigin(0, 0.5)
 
                     const nameCell = this.add.text(600, y, v.name, cellStyle)
                         .setOrigin(0, 0.5)
                     if (v.name === "_") {
-                        this.nameText = nameCell;
+                        rankCell.setColor('#ffffff')
+                            .setStroke('#f62f2f', 8)
+                        this.nameText = nameCell.setColor('#ffffff')
+                            .setStroke('#f62f2f', 8)
                     }
                 });
                 this.scores = leaderboard;
@@ -84,8 +93,8 @@ export class GameOver extends Scene {
     submitScore(playerName, playerScore) {
         fetch('/api/leaderboard', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: playerName, score: playerScore })
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({name: playerName, score: playerScore})
         })
             .then(response => response.json())
             .then(data => console.log('Leaderboard updated:', data))
