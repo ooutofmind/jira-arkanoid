@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "name": "Vladimir",
+    "score": 115
+  },
+  {
+    "name": "kai",
+    "score": 108
+  },
+  {
+    "name": "Anton",
+    "score": 77
+  },
+  {
+    "name": "Arjen",
+    "score": 47
+  },
+  {
+    "name": "Frank",
+    "score": 34
+  }
+]
